@@ -10,7 +10,7 @@ public class PkmnApplication {
         CardExport exporter = new CardExport();
         exporter.exportCard(card);
 
-        card = importer.importCardByte("C:\\Users\\Kirill\\IdeaProjects\\Pkmn\\Magmortar.crd");
+        card = importer.importCardByte("C:\\Users\\Kirill\\IdeaProjects\\Pkmn\\ChesnaughtV.crd");
         System.out.println(card.toString());
     }
 }
