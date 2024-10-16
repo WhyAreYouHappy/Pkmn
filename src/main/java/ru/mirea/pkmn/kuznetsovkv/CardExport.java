@@ -1,8 +1,9 @@
-package ru.mirea.kuznetsovkv.pkmn;
+package ru.mirea.pkmn.kuznetsovkv;
+
+import ru.mirea.pkmn.Card;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class CardExport {

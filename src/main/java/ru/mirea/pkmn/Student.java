@@ -1,4 +1,4 @@
-package ru.mirea.kuznetsovkv.pkmn;
+package ru.mirea.pkmn;
 
 import java.io.Serializable;
 

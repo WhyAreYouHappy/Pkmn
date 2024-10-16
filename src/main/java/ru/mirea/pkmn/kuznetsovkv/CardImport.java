@@ -1,4 +1,7 @@
-package ru.mirea.kuznetsovkv.pkmn;
+package ru.mirea.pkmn.kuznetsovkv;
+
+import ru.mirea.pkmn.*;
+
 
 import java.io.*;
 import java.io.FileReader;
@@ -6,10 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardImport {
-    public Card importCard(String path) {
+    public ru.mirea.pkmn.Card importCard(String path) {
 
         Card card = new Card();
-
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
             card.setPokemonStage(PokemonStage.valueOf(br.readLine().split("\\. ")[1]));

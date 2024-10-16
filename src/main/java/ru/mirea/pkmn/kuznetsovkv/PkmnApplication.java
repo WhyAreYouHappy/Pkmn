@@ -1,4 +1,6 @@
-package ru.mirea.kuznetsovkv.pkmn;
+package ru.mirea.pkmn.kuznetsovkv;
+
+import ru.mirea.pkmn.Card;
 
 public class PkmnApplication {
     public static void main(String[] args){
@@ -8,7 +10,7 @@ public class PkmnApplication {
         CardExport exporter = new CardExport();
         exporter.exportCard(card);
 
-        card = importer.importCardByte("C:\\Users\\Kirill\\IdeaProjects\\Pkmn\\Morpeko.crd");
+        card = importer.importCardByte("C:\\Users\\Kirill\\IdeaProjects\\Pkmn\\Magmortar.crd");
         System.out.println(card.toString());
     }
 }
