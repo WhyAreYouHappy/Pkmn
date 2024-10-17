@@ -26,18 +26,25 @@ public class Card implements Serializable {
 
     @Override
     public String toString() {
-        return  "1. " + pokemonStage + '\n'+
-                "2. " + name + '\n' +
-                "3. " + hp + '\n'  +
-                "4. " + pokemonType + '\n'  +
-                "5. " + (evolvesFrom != null && evolvesFrom.getName() != null ? evolvesFrom.getName() : "-") + '\n' +
-                "6. " + skills.stream().map(AttackSkill::toString).reduce((a, b) -> a + ", " + b).orElse("") + '\n'  +
-                "7. " + weaknessType + '\n'  +
-                "8. " + ((resistanceType != null) ? resistanceType : "-") + '\n'  +
-                "9. " + retreatCost + '\n' +
-                "10. " + gameSet + '\n' +
-                "11. " + regulationMark + '\n'  +
-                "12. " + pokemonOwner;
+        String info = "\n" + pokemonStage + ": \n" +
+                "   1. " + pokemonStage + '\n'+
+                "   2. " + name + '\n' +
+                "   3. " + hp + '\n'  +
+                "   4. " + pokemonType + '\n'  +
+                "   5. " + (evolvesFrom != null && evolvesFrom.getName() != null ? evolvesFrom.getName() : "-") + '\n' +
+                "   6. " + (skills != null ? skills.stream().map(AttackSkill::toString).reduce((a, b) -> a + ", " + b).orElse("") : '-') + '\n'  +
+                "   7. " + weaknessType + '\n'  +
+                "   8. " + ((resistanceType != null) ? resistanceType : "-") + '\n'  +
+                "   9. " + retreatCost + '\n' +
+                "   10. " + gameSet + '\n' +
+                "   11. " + regulationMark + '\n'  +
+                "   12. " + pokemonOwner;
+        if (evolvesFrom!=null){
+            return evolvesFrom.toString() + info;
+        }
+        else{
+            return info;
+        }
     }
 
     public Card(PokemonStage pokemonStage, String name, int hp, EnergyType pokemonType, Card evolvesFrom, List<AttackSkill> skills, EnergyType weaknessType, EnergyType resistanceType, String retreatCost, String gameSet, char regulationMark, Student pokemonOwner) {
