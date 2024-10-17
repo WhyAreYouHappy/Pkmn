@@ -10,7 +10,7 @@ public class PkmnApplication {
         CardExport exporter = new CardExport();
         exporter.exportCard(card);
 
-        card = importer.importCardByte("Corvisqure.crd");
+        card = importer.importCardByte("Morpeko.crd");
         System.out.println(card.toString());
     }
 }
