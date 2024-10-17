@@ -14,9 +14,9 @@ public class Student implements Serializable {
     public static final long serialVersionUID = 1L;
 
     public Student(String firstName, String surName, String familyName, String group) {
-        this.lastName = firstName;
-        this.firstName = surName;
-        this.middleName = middleName;
+        this.firstName = firstName;
+        this.surName = surName;
+        this.familyName = familyName;
         this.group = group;
     }
 
@@ -27,7 +27,7 @@ public class Student implements Serializable {
         return surName;
     }
     public String getFamilyName() {
-        return middleName;
+        return familyName;
     }
     public String getGroup() {
         return group;
