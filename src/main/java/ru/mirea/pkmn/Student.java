@@ -5,42 +5,42 @@ import java.io.Serializable;
 public class Student implements Serializable {
     @Override
     public String toString() {
-        return lastName + " / " + firstName + " / " + middleName + " / " + group;
+        return firstName + " / " + surName + " / " + familyName + " / " + group;
     }
-    private String lastName;
     private String firstName;
-    private String middleName;
+    private String surName;
+    private String familyName;
     private String group;
     public static final long serialVersionUID = 1L;
 
-    public Student(String lastName, String firstName, String middleName, String group) {
-        this.lastName = lastName;
-        this.firstName = firstName;
+    public Student(String firstName, String surName, String familyName, String group) {
+        this.lastName = firstName;
+        this.firstName = surName;
         this.middleName = middleName;
         this.group = group;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
     public String getFirstName() {
         return firstName;
     }
-    public String getMiddleName() {
+    public String getSurName() {
+        return surName;
+    }
+    public String getFamilyName() {
         return middleName;
     }
     public String getGroup() {
         return group;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
     }
     public void setGroup(String group) {
         this.group = group;
