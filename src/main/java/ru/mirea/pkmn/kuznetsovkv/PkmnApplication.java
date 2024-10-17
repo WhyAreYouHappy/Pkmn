@@ -5,12 +5,12 @@ import ru.mirea.pkmn.Card;
 public class PkmnApplication {
     public static void main(String[] args){
         CardImport importer = new CardImport();
-        Card card = importer.importCard("C:\\Users\\Kirill\\IdeaProjects\\Pkmn\\src\\main\\resources\\my_card.txt");
+        Card card = importer.importCard("src/main/resources/my_card.txt");
 
         CardExport exporter = new CardExport();
         exporter.exportCard(card);
 
-        card = importer.importCardByte("C:\\Users\\Kirill\\IdeaProjects\\Pkmn\\Corvisqure.crd");
+        card = importer.importCardByte("Corvisqure.crd");
         System.out.println(card.toString());
     }
 }
