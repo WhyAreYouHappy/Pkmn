@@ -168,7 +168,6 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     private UUID getCardIdFromDatabase(String cardName) throws SQLException {
-        System.out.println("FUCKING FUCK");
         String query = "SELECT * FROM card WHERE \"name\" = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {

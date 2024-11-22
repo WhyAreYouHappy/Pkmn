@@ -64,7 +64,7 @@ public class PkmnApplication {
             cardExport.exportCard(card);
 
             db.saveCardToDatabase(card);
-            System.out.println("имя покемона введи да");
+            System.out.println("ВВедите имя покемона: ");
             String selectedPokemon = scanner.next();
 
             Card card2 = db.getCardFromDatabase(selectedPokemon);
