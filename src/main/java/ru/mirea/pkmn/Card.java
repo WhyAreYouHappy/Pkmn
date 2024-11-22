@@ -23,6 +23,7 @@ public class Card implements Serializable {
     private String gameSet;
     private char regulationMark;
     private Student pokemonOwner;
+    public String number;
 
     @Override
     public String toString() {
@@ -38,7 +39,8 @@ public class Card implements Serializable {
                 "   9. " + retreatCost + '\n' +
                 "   10. " + gameSet + '\n' +
                 "   11. " + regulationMark + '\n'  +
-                "   12. " + pokemonOwner;
+                "   12. " + pokemonOwner + '\n' +
+                "   13. " + number;
         if (evolvesFrom!=null){
             return evolvesFrom.toString() + info;
         }
@@ -47,7 +49,7 @@ public class Card implements Serializable {
         }
     }
 
-    public Card(PokemonStage pokemonStage, String name, int hp, EnergyType pokemonType, Card evolvesFrom, List<AttackSkill> skills, EnergyType weaknessType, EnergyType resistanceType, String retreatCost, String gameSet, char regulationMark, Student pokemonOwner) {
+    public Card(PokemonStage pokemonStage, String name, int hp, EnergyType pokemonType, Card evolvesFrom, List<AttackSkill> skills, EnergyType weaknessType, EnergyType resistanceType, String retreatCost, String gameSet, char regulationMark, Student pokemonOwner, String number) {
         this.pokemonStage = pokemonStage;
         this.name = name;
         this.hp = hp;
@@ -60,6 +62,7 @@ public class Card implements Serializable {
         this.gameSet = gameSet;
         this.regulationMark = regulationMark;
         this.pokemonOwner = pokemonOwner;
+        this.number = number;
     }
 
     public PokemonStage getPokemonStage() {
@@ -98,11 +101,11 @@ public class Card implements Serializable {
     public Student getPokemonOwner() {
         return pokemonOwner;
     }
+    public String getNumber() { return number; }
 
     public void setPokemonStage(PokemonStage pokemonStage) {
         this.pokemonStage = pokemonStage;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -136,4 +139,5 @@ public class Card implements Serializable {
     public void setPokemonOwner(Student pokemonOwner) {
         this.pokemonOwner = pokemonOwner;
     }
+    public void setNumber(String number) { this.number = number; }
 }
