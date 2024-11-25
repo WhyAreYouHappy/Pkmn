@@ -9,75 +9,84 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardImport {
-    public ru.mirea.pkmn.Card importCard(String path) {
+    private final String filePath;
+    private static final long serialVersionUID = 1L;
 
+    public CardImport(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public Card loadCard() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            return parseCard(reader);
+        } catch (IOException e) {
+            System.err.println("Ошибка при загрузке карты: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private Card parseCard(BufferedReader reader) throws IOException {
         Card card = new Card();
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
-            card.setPokemonStage(PokemonStage.valueOf(br.readLine().split("\\. ")[1]));
-            card.setName(br.readLine().split("\\. ")[1]);
-            card.setHp(Integer.parseInt(br.readLine().split("\\. ")[1]));
-            card.setPokemonType(EnergyType.valueOf(br.readLine().split("\\. ")[1]));
-            String evolution = br.readLine().split("\\. ")[1];
+        card.setPokemonStage(parsePokemonStage(reader.readLine()));
+        card.setName(reader.readLine());
+        card.setHp(Integer.parseInt(reader.readLine().trim()));
+        card.setPokemonType(parseEnergyType(reader.readLine()));
+        card.setEvolvesFrom(parseEvolvesFrom(reader.readLine().trim()));
 
-            if (!evolution.equals("-")){
-                card.setEvolvesFrom(new Card(evolution));
-            }
-
-            String[] skill = br.readLine().split("\\. ")[1].split(", ");
-            List<AttackSkill> skills = new ArrayList<>();
-
-            for (String i : skill){
-                String[] arr = i.split(" / ");
-                AttackSkill attackSkill = new AttackSkill(arr[1], "", arr[0], Integer.parseInt(arr[2]));
-                skills.add(attackSkill);
-            }
-
-            card.setSkills(skills);
-            card.setWeaknessType(EnergyType.valueOf(br.readLine().split("\\. ")[1]));
-
-            String resist = br.readLine().split("\\. ")[1];
-            if (!resist.equals("-")){
-                card.setResistanceType(EnergyType.valueOf(br.readLine().split("\\. ")[1]));
-            }
-
-            String runCost = br.readLine().split("\\. ")[1];
-            card.setRetreatCost(runCost);
-
-            String cardsetName = br.readLine().split("\\. ")[1];
-            card.setGameSet(cardsetName);
-
-            card.setRegulationMark(br.readLine().split("\\. ")[1].charAt(0));
-            String line12 = br.readLine().split("\\. ")[1];
-
-            String[] nameStudent = line12.split(" / ");
-            card.setPokemonOwner(new Student(nameStudent[0],
-                    nameStudent[1], nameStudent[2], nameStudent[3]));
-
-            card.setNumber(br.readLine().split("\\. ")[1]);
-
-        }
-        catch (IOException e) {
-            System.err.println("Ошибка имортирования: " + e.getMessage());
-        }
-
+        card.setSkills(parseSkills(reader.readLine().split(",")));
+        card.setWeaknessType(parseEnergyType(reader.readLine().trim()));
+        card.setResistanceType(parseEnergyType(reader.readLine().trim()));
+        card.setRetreatCost(reader.readLine());
+        card.setGameSet(reader.readLine());
+        card.setRegulationMark(reader.readLine().charAt(0));
+        card.setPokemonOwner(parseOwner(reader.readLine()));
+        card.setNumber(reader.readLine());
         return card;
     }
 
-    public Card importCardByte(String fileName) {
-        Card card = null;
+    private PokemonStage parsePokemonStage(String stage) {
+        return PokemonStage.valueOf(stage.toUpperCase().trim());
+    }
 
-        try (FileInputStream fileIn = new FileInputStream(fileName);
-             ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
-            card = (Card) objectIn.readObject();
-        }
-        catch (IOException e) {
-            System.err.println("Ошибка импортирования: " + e.getMessage());
-        }
-        catch (ClassNotFoundException e) {
-            System.err.println("Класс карты не найден: " + e.getMessage());
-        }
+    private EnergyType parseEnergyType(String type) {
+        return (type == null || type.equals("-") || type.isEmpty()) ? null : EnergyType.valueOf(type.toUpperCase().trim());
+    }
 
-        return card;
+    private Card parseEvolvesFrom(String evolvesFromFile) throws IOException {
+        if (evolvesFromFile.equals("-")) {
+            return null;
+        }
+        String evolveFilePath = "src\\main\\resources\\" + evolvesFromFile;
+        try (BufferedReader reader = new BufferedReader(new FileReader(evolveFilePath))) {
+            return parseCard(reader);
+        }
+    }
+
+    private List<AttackSkill> parseSkills(String[] abilitiesData) {
+        List<AttackSkill> skills = new ArrayList<>();
+        for (String ability : abilitiesData) {
+            String[] abilityParts = ability.split("/");
+            skills.add(new AttackSkill(
+                    abilityParts[1].trim(),
+                    "",
+                    abilityParts[0].trim(),
+                    Integer.parseInt(abilityParts[2].trim())));
+        }
+        return skills;
+    }
+
+    private Student parseOwner(String ownerLine) {
+        String[] parts = ownerLine.split("/");
+        return new Student(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim());
+    }
+
+    public Card deserializeCard(String filePath) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
+            return (Card) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Ошибка при десериализации карты: " + e.getMessage());
+            return null;
+        }
     }
 }

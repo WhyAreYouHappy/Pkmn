@@ -7,15 +7,18 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class CardExport {
-    public void exportCard(Card card) {
-        String cardpath = card.getName() + ".crd";
+    private static final long serialVersionUID = 1L;
 
-        try (FileOutputStream outputFile = new FileOutputStream(cardpath);
-            ObjectOutputStream outputObject = new ObjectOutputStream(outputFile)) {
-            outputObject.writeObject(card);
-            System.out.println("Карта экпортрована в:" + cardpath);
-        }
-        catch (IOException e){
+    public void saveCard(Card card) {
+        String fileName = card.getName() + ".crd";
+
+        try (FileOutputStream fileOut = new FileOutputStream(fileName); // try-with-resources xd
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+
+            out.writeObject(card);
+            System.out.println("Карта экспортирована в: " + fileName);
+        } catch (IOException e) {
+            System.err.println("Ошибка:\n " + e.getMessage());
             e.printStackTrace();
         }
     }

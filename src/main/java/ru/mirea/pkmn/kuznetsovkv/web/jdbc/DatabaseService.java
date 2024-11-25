@@ -1,18 +1,19 @@
 package ru.mirea.pkmn.kuznetsovkv.web.jdbc;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import ru.mirea.pkmn.Card;
 import ru.mirea.pkmn.Student;
+
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.UUID;
 
 public interface DatabaseService {
-    Card getCardFromDatabase(String cardName) throws SQLException;
+    Card getCardFromDatabase(String cardName) throws IOException;
 
-    Student getStudentFromDatabaseById(UUID uuid) throws SQLException;
+    Student getStudentFromDatabase(String studentFullName);
 
-    Student getStudentFromDatabase(String studentName) throws SQLException;
+    void saveCardToDatabase(Card card) throws IOException;
 
-    void saveCardToDatabase(Card card) throws SQLException;
-
-    void createPokemonOwner(Student owner) throws SQLException;
+    void createPokemonOwner(Student owner);
 }
